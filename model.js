@@ -10,4 +10,4 @@ const abc = mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("Restarent",abc)
+module.exports = mongoose.model("Restarent",abc);
