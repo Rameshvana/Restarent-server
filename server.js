@@ -31,9 +31,10 @@ app.get('/', (req,res) => {
 
 app.post('/add-restarent', async (req,res) => {
    let con = req.body;
-   const {restarent_name,description,reviews,available,location,image} = con       
+   console.log(con)
+   const {restarent_name,description,category,available,location,image} = con       
    try {
-      const newData = new Restarent({restarent_name,description,reviews,location,available,image});
+      const newData = new Restarent({restarent_name,description,category,location,available,image});
       await newData.save();
       //return res.json(await Restarent.find())
       res.status(201).json(newData)    
@@ -50,4 +51,15 @@ app.get('/restarents', async (req,res) => {
    } catch (error) {
       console.log(error.message)    
    }       
+})
+
+app.delete('/delete-restarent/:id', async (req,res) => {
+   const {id} = req.params;
+   console.log(id)
+   try {
+      await Restarent.findByIdAndDelete(id)
+      return res.json(await Restarent.find())
+   } catch (error) {
+      console.log(error.message)
+   }
 })
