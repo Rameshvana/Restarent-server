@@ -63,3 +63,36 @@ app.delete('/delete-restarent/:id', async (req,res) => {
       console.log(error.message)
    }
 })
+
+app.get('/restarents/:id', async (req,res) => {
+   const {id} = req.params;
+
+   try {
+       const allData = await Restarent.findById(id);
+       return res.json(allData) ;  
+   } catch (error) {
+      console.log(error.message)    
+   }       
+})
+
+app.put('/update-restarent/:id', async (req, res) => {
+   let con = req.body;
+   console.log(con)
+   const {restarent_name,description,category,available,location,image} = con 
+   try {
+     const updateData = await Restarent.findByIdAndUpdate(req.params.id,
+      {restarent_name,description,category,location,available,image} 
+      );
+     // Send response in here
+     //res.send('Item Updated!');
+    res.json(updateData)
+
+   } catch(err) {
+       console.error(err.message);
+       res.send(400).send('Server Error');
+   }
+});
+
+app.put('/up/:id', async (req, res) => {
+express.response.send(req.body)
+});
